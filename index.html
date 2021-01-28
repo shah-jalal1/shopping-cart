@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5 id="total-price">$1,278</h5>
+                        <h5 id="tax-amount">$0</h5>
+                        <h5 id="grand-total">$1,278</h5>
                      </div>
                   </div>
                </div>
@@ -87,7 +87,7 @@
       // });
 
       function handleProductChange(product, isIncrease) {
-         const productInput = document.getElementById(product +'-count');
+         const productInput = document.getElementById(product + '-count');
          const productCount = parseInt(productInput.value);
          let procuctNewCount = productCount;
          if (isIncrease == true) {
@@ -107,6 +107,32 @@
          }
          
          document.getElementById(product + '-total').innerText = '$' + productTotal;
+         calculateTotal();
+      }
+
+      function calculateTotal() {
+         // const phoneInput = document.getElementById('phone-count');
+         // const phoneCount = parseInt(phoneInput.value);
+
+         const phoneCount = getInputValue('phone');
+
+         const caseCount = getInputValue('case');
+
+         const totalPrice = phoneCount * 1219 + caseCount * 59;
+         document.getElementById('total-price').innerText = '$' + totalPrice;
+
+         // const tax = (totalPrice * 0.1);
+         const tax = Math.round(totalPrice * 0.1);
+         document.getElementById('tax-amount').innerText ='$' +tax;
+         
+         const grantTotal= totalPrice + tax;
+         document.getElementById('grand-total').innerText ='$' + grantTotal;
+      }
+
+      function getInputValue(product){
+         const productInput = document.getElementById(product + '-count');
+         const productCount = parseInt(productInput.value);
+         return productCount;
       }
 
       // function handlePhoneChange(isIncrease) {
